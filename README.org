@@ -1,3 +1,6 @@
 #+TITLE: Minuit sampler for Cobaya
 #+AUTHOR: Xavier Garrido
 #+EMAIL: xaver.garrido@lal.in2p3.fr
+
+This python module provides a new sampler for [[https://github.com/CobayaSampler/cobaya][cobaya]] framework based on [[https://github.com/scikit-hep/iminuit][the Python interface to
+MINUIT]].
