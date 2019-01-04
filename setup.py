@@ -43,5 +43,5 @@ setup(name="cobaya-minuit-sampler",
       cmdclass={
           "develop": PostDevelopCommand,
           "install": PostInstallCommand,
-      },
+      }
 )
