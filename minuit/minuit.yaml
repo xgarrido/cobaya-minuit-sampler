@@ -1,0 +1,10 @@
+# Default arguments for the -logposterior minimizer
+
+sampler:
+  minuit:
+    # Minimizes the full posterior (False) or just the likelihood (True)
+    ignore_prior: True
+    # Maximum number of function evaluation. Default: practically infinite
+    maxfev: 10000
+    # Override keyword arguments for `iminuit.minimize`,
+    override:
