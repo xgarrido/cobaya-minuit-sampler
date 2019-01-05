@@ -2,25 +2,31 @@ from setuptools import setup, find_packages
 from setuptools.command.develop import develop
 from setuptools.command.install import install
 
-def link_minuit_to_cobaya():
+def link_minuit_to_cobaya(develop_mode=True):
     import cobaya
-    import minuit
+    dest = cobaya.__path__[0] + "/samplers/minuit"
+    if develop_mode:
+        import minuit
+        src = minuit.__path__[0]
+    else:
+        from distutils.sysconfig import get_python_lib
+        src = get_python_lib() + "/minuit"
     import os
-    minuit_samplers_path = cobaya.__path__[0] + "/samplers/minuit"
-    os.unlink(minuit_samplers_path)
-    os.symlink(minuit.__path__[0], minuit_samplers_path)
+    if os.path.islink(dest):
+        os.unlink(dest)
+    os.symlink(src, dest)
 
 class PostDevelopCommand(develop):
     """Post-command for development mode."""
     def run(self):
         develop.run(self)
-        link_minuit_to_cobaya()
+        link_minuit_to_cobaya(develop_mode=True)
 
 class PostInstallCommand(install):
     """Post-command for installation mode."""
     def run(self):
         install.run(self)
-        link_minuit_to_cobaya()
+        link_minuit_to_cobaya(develop_mode=False)
 
 setup(name="cobaya-minuit-sampler",
       version = "0.1",
