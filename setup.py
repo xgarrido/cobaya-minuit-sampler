@@ -2,17 +2,13 @@ from setuptools import setup, find_packages
 from setuptools.command.develop import develop
 from setuptools.command.install import install
 
-def unlink_minuit_to_cobaya():
-    import cobaya
-    import os
-    os.unlink(cobaya.__path__[0] + "/samplers/minuit")
-
 def link_minuit_to_cobaya():
     import cobaya
     import minuit
     import os
-    unlink_minuit_to_cobaya()
-    os.symlink(minuit.__path__[0], cobaya.__path__[0] + "/samplers/minuit")
+    minuit_samplers_path = cobaya.__path__[0] + "/samplers/minuit"
+    os.unlink(minuit_samplers_path)
+    os.symlink(minuit.__path__[0], minuit_samplers_path)
 
 class PostDevelopCommand(develop):
     """Post-command for development mode."""
@@ -30,7 +26,7 @@ setup(name="cobaya-minuit-sampler",
       version = "0.1",
       packages = find_packages(),
       description = "Minuit sampler for cobaya",
-      url = "https://github.com/thibautlouis/beyondCV",
+      url = "https://github.com/xgarrido/cobaya-minuit-sampler",
       author = "Xavier Garrido",
       author_email = "xavier.garrido@lal.in2p3.fr",
       keywords = ["CMB", "minimization", "sampler", "minuit"],
