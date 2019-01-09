@@ -27,7 +27,7 @@ from cobaya.log import HandledException
 
 class minuit(Sampler):
     def initialize(self):
-        """Prepares the arguments for `scipy.minimize`."""
+        """Prepares the arguments for `iminuit.minimize`."""
         if not get_mpi_rank():
             self.log.info("Initializing")
         self.logp = ((lambda x: self.model.logposterior(x, make_finite=True)[0])
