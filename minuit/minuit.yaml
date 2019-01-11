@@ -4,7 +4,18 @@ sampler:
   minuit:
     # Minimizes the full posterior (False) or just the likelihood (True)
     ignore_prior: True
+
     # Maximum number of function evaluation. Default: practically infinite
     maxfev: 10000
+
+    # Strategy mode
+    #  - 0 fast
+    #  - 1 default
+    #  - 2 slow but accurate
+    strategy: 2
+
+    # Remove cosmological limits after first minimisation
+    remove_cosmo_limits: False
+
     # Override keyword arguments for `iminuit.minimize`,
     override:

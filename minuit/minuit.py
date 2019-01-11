@@ -58,10 +58,10 @@ class minuit(Sampler):
 
         itry = 0
         while not itry or not self.result.success:
-            # Rerun with accuracy and without cosmo. limits
-            self.result.minuit.set_strategy(2)
+            self.result.minuit.set_strategy(self.strategy)
             self.kwargs["x0"] = self.result.x
-            # self.kwargs["bounds"] = None
+            if self.remove_cosmo_limits:
+                self.kwargs["bounds"] = None
             self.result = _minimize(**self.kwargs)
             itry += 1
             if itry == 100:
