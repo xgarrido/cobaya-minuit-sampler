@@ -27,7 +27,9 @@ from cobaya.log import HandledException
 
 class minuit(Sampler):
     def initialize(self):
-        """Prepares the arguments for `iminuit.minimize`."""
+        """
+        Prepares the arguments for `iminuit.minimize`.
+        """
         if not get_mpi_rank():
             self.log.info("Initializing")
         self.logp = ((lambda x: self.model.logposterior(x, make_finite=True)[0])
@@ -50,7 +52,7 @@ class minuit(Sampler):
 
     def run(self):
         """
-        Runs `iminuit.minimize`
+        Runs `iminuit.minimize`.
         """
         self.log.info("Starting minimization.")
         from iminuit import minimize as _minimize
@@ -58,14 +60,15 @@ class minuit(Sampler):
 
         itry = 0
         while not itry or not self.result.success:
+            # Retry with closest starting point
             self.result.minuit.set_strategy(self.strategy)
             self.kwargs["x0"] = self.result.x
             if self.remove_cosmo_limits:
                 self.kwargs["bounds"] = None
             self.result = _minimize(**self.kwargs)
-            itry += 1
-            if itry == 100:
+            if itry == self.ntry_max:
                 break
+            itry += 1
 
         if self.result.success:
             self.log.info("Finished succesfully.")
@@ -74,8 +77,8 @@ class minuit(Sampler):
 
     def close(self, *args):
         """
-        Determines success (or not), chooses best (if MPI)
-        and produces output (if requested).
+        Determines success (or not), chooses best (if MPI) and produces output (if requested).
+
         """
         # If something failed
         if not hasattr(self, "result"):

@@ -8,6 +8,9 @@ sampler:
     # Maximum number of function evaluation. Default: practically infinite
     maxfev: 10000
 
+    # Maximum number of minimization. Default: practically infinite until success
+    ntry_max: 100
+
     # Strategy mode
     #  - 0 fast
     #  - 1 default
