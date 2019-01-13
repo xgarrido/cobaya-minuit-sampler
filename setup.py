@@ -41,7 +41,7 @@ setup(name="cobaya-minuit-sampler",
                      "Operating System :: OS Independent",
                      "Programming Language :: Python :: 2.7",
                      "Programming Language :: Python :: 3.7"],
-      install_requires = ["cobaya"],
+      install_requires = ["cobaya", "iminuit"],
       package_data = {"minuit": ["*.yaml"]},
       cmdclass={
           "develop": PostDevelopCommand,
