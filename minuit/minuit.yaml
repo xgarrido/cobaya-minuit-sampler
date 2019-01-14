@@ -20,5 +20,8 @@ sampler:
     # Remove cosmological limits after first minimisation
     remove_cosmo_limits: False
 
+    # Force results even if minimization is unsucesful
+    force: False
+
     # Override keyword arguments for `iminuit.minimize`,
     override:

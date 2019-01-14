@@ -75,6 +75,10 @@ class minuit(Sampler):
         else:
             self.log.error("Finished Unsuccesfully.")
 
+        # Force success
+        if self.force:
+            self.result.success = True
+
     def close(self, *args):
         """
         Determines success (or not), chooses best (if MPI) and produces output (if requested).
