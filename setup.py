@@ -3,14 +3,15 @@ from setuptools.command.develop import develop
 from setuptools.command.install import install
 
 def link_minuit_to_cobaya(develop_mode=True):
-    import cobaya
-    dest = cobaya.__path__[0] + "/samplers/minuit"
     if develop_mode:
         import minuit
         src = minuit.__path__[0]
+        import cobaya
+        dest = cobaya.__path__[0] + "/samplers/minuit"
     else:
         from distutils.sysconfig import get_python_lib
         src = get_python_lib() + "/minuit"
+        dest = get_python_lib() + "/cobaya/samplers/minuit"
     import os
     if os.path.islink(dest):
         os.unlink(dest)
