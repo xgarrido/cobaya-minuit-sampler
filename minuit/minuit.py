@@ -74,6 +74,8 @@ class minuit(Sampler):
             self.log.info("Finished succesfully.")
         else:
             self.log.error("Finished Unsuccesfully.")
+        # Add number of tries before
+        self.result.ntry = itry
 
         # Force success
         if self.force:
